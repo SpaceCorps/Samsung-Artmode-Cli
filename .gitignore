@@ -1,6 +1,1 @@
-bin/
-obj/
-nupkg/
-*.user
-*.suo
-.vs/
+/target
