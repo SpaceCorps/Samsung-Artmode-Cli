@@ -19,9 +19,11 @@ pub fn run(
             readme::print();
             Ok(())
         }
-        Command::Pair { host: pair_host, name, timeout } => {
+        Command::Login { host: pair_host, name, timeout }
+        | Command::Pair { host: pair_host, name, timeout } => {
             art::pair(pair_host.as_deref().or(host.as_deref()), name.as_deref(), timeout, verbose)
         }
+
         Command::Status => art::status(account.as_deref(), host.as_deref(), token.as_deref(), verbose),
         Command::List { category } => {
             art::list(account.as_deref(), host.as_deref(), token.as_deref(), category.as_deref(), verbose)

@@ -38,6 +38,17 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Command {
+    /// Log in / pair with a Samsung Frame TV and acquire an auth token
+    Login {
+        /// TV IP address or hostname (auto-discovers on local network if omitted)
+        host: Option<String>,
+        /// Optional name to save TV in config and store token in keystore
+        #[arg(long)]
+        name: Option<String>,
+        /// Scan/connection timeout in seconds (default: 5)
+        #[arg(long, default_value = "5")]
+        timeout: u64,
+    },
     /// Pair with a Samsung Frame TV and acquire an auth token
     Pair {
         /// TV IP address or hostname (auto-discovers on local network if omitted)
@@ -49,6 +60,7 @@ pub enum Command {
         #[arg(long, default_value = "5")]
         timeout: u64,
     },
+
     /// Get current Art Mode status (on/off)
     Status,
     /// List artwork images on the TV

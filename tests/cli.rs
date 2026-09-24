@@ -508,3 +508,15 @@ fn missing_tv_account_reports_no_account() {
     assert_eq!(err["code"], "no_account");
     assert!(err["detail"].as_str().unwrap().contains("No TV accounts are configured yet"));
 }
+
+#[test]
+fn test_login_command() {
+    let env = TestEnv::new();
+
+    // Verify `samsung-artmode login --help` succeeds
+    let out = env.run(&["login", "--help"]);
+    assert!(out.status.success());
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    assert!(stdout.contains("Log in / pair with a Samsung Frame TV"));
+}
+
