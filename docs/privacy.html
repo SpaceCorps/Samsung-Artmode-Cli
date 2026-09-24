@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy · Samsung Art Mode CLI</title>
+  <meta name="description" content="Privacy policy for Samsung Art Mode CLI: Zero telemetry, local network execution, and local keystore security.">
+  <link rel="canonical" href="https://spacecorps.github.io/Samsung-Artmode-Cli/privacy.html">
+  <meta property="og:title" content="Privacy Policy · Samsung Art Mode CLI">
+  <meta property="og:description" content="Privacy policy for Samsung Art Mode CLI: Zero telemetry, local network execution, and local keystore security.">
+  <meta property="og:url" content="https://spacecorps.github.io/Samsung-Artmode-Cli/privacy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://spacecorps.github.io/Samsung-Artmode-Cli/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="is-agentic-site-type" content="content">
+  <style>
+    body { background: #090d16; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; padding: 40px 20px; }
+    .content-box { max-width: 800px; margin: 0 auto; background: rgba(22, 27, 46, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 40px; }
+    h1 { font-size: 2.2rem; margin-bottom: 20px; color: #fff; }
+    h2 { font-size: 1.4rem; margin-top: 30px; margin-bottom: 12px; color: #38bdf8; }
+    p { margin-bottom: 16px; color: #94a3b8; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; margin-bottom: 24px; color: #6366f1; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="content-box">
+    <a href="./" class="back">&larr; Back to Samsung Art Mode CLI</a>
+    <h1>Privacy Policy & Security Standards</h1>
+    
+    <p>Last updated: September 24, 2026. This Privacy Policy details the data handling, storage practices, and network communications of the Samsung Art Mode CLI binary and documentation website.</p>
+
+    <h2>1. 100% Local Network Communication</h2>
+    <p>Samsung Art Mode CLI operates strictly across your local home network (LAN). All WebSocket commands and TCP image transfers connect directly from your machine to your Samsung TV's local IP address (ports 8001 and 8002). No artwork, images, device identifiers, or commands are ever transmitted to any cloud servers or third-party relay services.</p>
+
+    <h2>2. Zero Telemetry & No Analytics</h2>
+    <p>The CLI binary contains zero tracking code, zero analytics SDKs, and zero telemetry beacons. We do not collect error logs, IP addresses, feature usage statistics, or session counts. What you display on your TV remains entirely private to your household.</p>
+
+    <h2>3. Native Operating System Keystore Protection</h2>
+    <p>Authentication tokens generated when pairing with your TV are treated as sensitive credentials. By default, tokens are never written in plain text to configuration files. Instead, they are delegated to your operating system's native secure credential vault (macOS Keychain, Windows DPAPI, or Linux Secret Service via libsecret). Non-secret metadata (host IP and model name) is stored in a user-restricted local configuration file (chmod 0600 on POSIX systems).</p>
+
+    <h2>4. Documentation Website Privacy</h2>
+    <p>This static documentation site is hosted on GitHub Pages. It contains no tracking scripts, cookies, or marketing pixels. Access logs are processed strictly by GitHub in accordance with GitHub's standard Privacy Policy.</p>
+  </div>
+</body>
+</html>

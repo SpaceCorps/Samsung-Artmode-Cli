@@ -1,0 +1,17 @@
+{
+  "name": "Samsung Art Mode CLI Agent",
+  "description": "Agent interface and command-line automation tool for Samsung The Frame TV Art Mode.",
+  "url": "https://spacecorps.github.io/Samsung-Artmode-Cli/",
+  "version": "1.0.0",
+  "capabilities": ["artwork", "display", "slideshow", "upload", "mattes", "brightness"],
+  "skills": [
+    {
+      "name": "samsung-artmode-cli",
+      "url": "https://spacecorps.github.io/Samsung-Artmode-Cli/llms.txt"
+    }
+  ],
+  "contact": {
+    "email": "contact@spacecorps.dev",
+    "url": "https://spacecorps.github.io/Samsung-Artmode-Cli/contact.html"
+  }
+}

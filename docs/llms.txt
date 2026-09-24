@@ -1,0 +1,56 @@
+# Samsung Art Mode CLI
+
+> A fast native command-line tool and agent interface for Samsung The Frame TV Art Mode. Built in Rust for developers, smart homes, and autonomous AI agents.
+
+## When to Use This CLI
+
+Use the `samsung-artmode` CLI whenever you need to:
+- **Pair with a Samsung Frame TV:** Auto-discover TVs on the local network or connect by IP to acquire an authentication token.
+- **Check Art Mode status:** Determine whether Art Mode is active on a TV (`samsung-artmode status`).
+- **Manage artwork collections:** List, view current artwork, select images to display, and delete images from the TV.
+- **Upload photographs:** Transfer PNG or JPEG images to the TV with optional frame mattes.
+- **Customize presentation:** Adjust display brightness (0-10) and apply custom frame mattes (e.g., `none`, `flexible_polar`, `shadowbox_black`).
+- **Control slideshows:** Automate rotating artwork intervals and shuffle photo playlists.
+- **Agentic automation:** Drive Art Mode deterministically via `--json` output and stable error exit codes.
+
+Do NOT use this tool if:
+- You need to stream audio/video or control general TV apps like Netflix/YouTube (use a general Tizen remote CLI instead).
+- Your TV is not a Samsung The Frame model with Art Mode capabilities.
+
+## Core Agent Operating Principles
+
+1. **Explicit Device Selection:** Always pass `--account <name>` (short `-a <name>`) or `--host <ip>` on commands that interact with a TV. There is no implicit default device.
+2. **First-Time Setup:** Run `samsung-artmode pair [host] [--name <name>]` to discover and pair with a TV. Approve the connection on the TV screen when prompted.
+3. **Machine-Readable Outputs:** Always supply `--json` when parsing command results in scripts or LLM tool-calling loops.
+4. **Error Codes:** Non-zero exit codes carry structured error envelopes with stable machine-readable codes (`no_account`, `auth_required`, `not_found`, `rate_limited`, `invalid_input`, `network`).
+
+## Key Command Patterns
+
+### Pairing & Multi-TV Accounts
+- `samsung-artmode pair [host] [--name <name>]`: Pair with a TV and save to keystore.
+- `samsung-artmode accounts list --json`: List configured TVs and their network host.
+- `samsung-artmode accounts test <name> --json`: Test connectivity to a stored TV account.
+- `samsung-artmode accounts remove <name> --yes`: Remove a TV and clear its stored token.
+
+### Art Mode Control
+- `samsung-artmode status -a <account> --json`: Get Art Mode state (on/off).
+- `samsung-artmode list -a <account> [--category <cat>] --json`: List stored artwork.
+- `samsung-artmode current -a <account> --json`: Get currently displayed artwork.
+- `samsung-artmode select <content_id> [--show] -a <account> --json`: Display artwork.
+- `samsung-artmode upload <file> [--matte <matte_id>] [--select] -a <account> --json`: Upload photo.
+- `samsung-artmode delete <content_id> -a <account> --json`: Delete artwork from TV.
+- `samsung-artmode favorite <content_id> [--remove] -a <account> --json`: Add/remove favorite.
+
+### Display Adjustments
+- `samsung-artmode brightness get -a <account> --json`: Query brightness level.
+- `samsung-artmode brightness set <0-10> -a <account> --json`: Set brightness.
+- `samsung-artmode matte list -a <account> --json`: List available matte borders.
+- `samsung-artmode matte set <content_id> <matte_id> -a <account> --json`: Apply matte.
+- `samsung-artmode slideshow [--interval <mins>] [--shuffle] -a <account> --json`: Start slideshow.
+- `samsung-artmode slideshow --off -a <account> --json`: Stop slideshow.
+
+## Documentation Links
+- Full Website: https://spacecorps.github.io/Samsung-Artmode-Cli/
+- Detailed Agent Manual: https://spacecorps.github.io/Samsung-Artmode-Cli/llms-full.txt
+- Authentication Guide: https://spacecorps.github.io/Samsung-Artmode-Cli/auth.md
+- GitHub Repository: https://github.com/SpaceCorps/Samsung-Artmode-Cli

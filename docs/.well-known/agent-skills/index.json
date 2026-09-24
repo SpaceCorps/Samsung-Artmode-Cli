@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "samsung-artmode-cli",
+      "description": "Control Samsung The Frame TV Art Mode: pair TVs, upload JPEG/PNG artwork, manage collections, adjust brightness, change mattes, and control slideshows over local network WebSocket.",
+      "type": "skill-md",
+      "url": "https://spacecorps.github.io/Samsung-Artmode-Cli/llms.txt"
+    }
+  ]
+}

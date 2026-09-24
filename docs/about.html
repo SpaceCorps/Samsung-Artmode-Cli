@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · Samsung Art Mode CLI</title>
+  <meta name="description" content="About Samsung Art Mode CLI: An open source native Rust command-line tool and agent interface for Samsung The Frame TV Art Mode.">
+  <link rel="canonical" href="https://spacecorps.github.io/Samsung-Artmode-Cli/about.html">
+  <meta property="og:title" content="About · Samsung Art Mode CLI">
+  <meta property="og:description" content="About Samsung Art Mode CLI: An open source native Rust command-line tool and agent interface for Samsung The Frame TV Art Mode.">
+  <meta property="og:url" content="https://spacecorps.github.io/Samsung-Artmode-Cli/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://spacecorps.github.io/Samsung-Artmode-Cli/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="is-agentic-site-type" content="content">
+  <style>
+    body { background: #090d16; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; padding: 40px 20px; }
+    .content-box { max-width: 800px; margin: 0 auto; background: rgba(22, 27, 46, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 40px; }
+    h1 { font-size: 2.2rem; margin-bottom: 20px; color: #fff; }
+    h2 { font-size: 1.4rem; margin-top: 30px; margin-bottom: 12px; color: #38bdf8; }
+    p { margin-bottom: 16px; color: #94a3b8; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; margin-bottom: 24px; color: #6366f1; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="content-box">
+    <a href="./" class="back">&larr; Back to Samsung Art Mode CLI</a>
+    <h1>About Samsung Art Mode CLI</h1>
+    
+    <p>Samsung Art Mode CLI (<code>samsung-artmode</code>) is a high-performance, open-source command-line tool and programmatic automation interface designed specifically for Samsung The Frame Smart TVs. Maintained under the SpaceCorps open-source engineering collective, the project gives home automation developers, smart home enthusiasts, and autonomous AI agents a standalone, statically-compiled binary to control Art Mode over the local area network.</p>
+
+    <h2>Project Origins & Lineage</h2>
+    <p>The original prototype was created by Niels Bosma as a .NET global tool named <code>SamsungArtMode.Console</code>. While pioneering the reverse-engineered WebSocket commands for The Frame TV, home automation pipelines and background agent workflows benefit immensely from single static binaries with instant cold starts (1–3 ms) and zero runtime dependencies.</p>
+    <p>In 2026, SpaceCorps ported the entire tool to native Rust (Edition 2024, Rust 1.89+). The port preserved 100% of Niels Bosma's original Git commit history while modernizing the architecture to adhere to the SpaceCorps CLI Porting Playbook.</p>
+
+    <h2>Architectural Principles</h2>
+    <p>Samsung Art Mode CLI is built around three core tenets: speed, local privacy, and agent safety:</p>
+    <ul>
+      <li><strong>Native Speed & Zero Runtime Dependencies:</strong> Written in Rust without external managed runtime engines or heavy async runtimes. Executes local commands in milliseconds.</li>
+      <li><strong>Native Keystore Security:</strong> Sensitive TV authentication tokens are stored securely in the host operating system's native credential store (macOS Keychain, Windows DPAPI, Linux Secret Service).</li>
+      <li><strong>Deterministic Multi-Device Management:</strong> Named TV device accounts (e.g. <code>living-room</code>, <code>bedroom</code>, <code>studio</code>) prevent accidental display mutations across multi-TV setups.</li>
+      <li><strong>Dual Human/Agent Output Protocol:</strong> Clean, colorized YAML by default for terminal readability, and raw structured JSON with <code>--json</code> for pipeline scripting and LLM tool execution.</li>
+    </ul>
+
+    <h2>Open Source & Community</h2>
+    <p>The project is released under the permissive MIT License. Full source code, issue tracking, and pre-compiled release binaries are hosted on GitHub at <a href="https://github.com/SpaceCorps/Samsung-Artmode-Cli" target="_blank" rel="noopener noreferrer">github.com/SpaceCorps/Samsung-Artmode-Cli</a>.</p>
+  </div>
+</body>
+</html>

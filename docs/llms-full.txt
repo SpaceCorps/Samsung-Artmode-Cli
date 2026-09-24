@@ -1,0 +1,141 @@
+# samsung-artmode - Full Agent Operating Manual
+
+A native Rust CLI for controlling Samsung The Frame TV Art Mode over the local network.
+Results are YAML on stdout, errors are YAML or JSON on stderr, and `--json` switches both to machine-readable JSON.
+
+## Target Device Resolution
+
+Pass `--account <name>` (short `-a <name>`) or `--host <ip>` on every command. There is no implicit default device.
+
+    samsung-artmode accounts list                      # what TVs are configured
+    samsung-artmode status -a living-room              # check Art Mode status
+    samsung-artmode status --host 192.168.1.100        # target by IP directly
+
+If you do not know which TV to use, run `samsung-artmode accounts list` and ask the human.
+
+### Pairing with a New TV
+
+    samsung-artmode pair [host] [--name <name>]
+
+1. If no host is provided, auto-discovers Samsung TVs on the local network via SSDP multicast.
+2. Prompts the TV user on-screen: "Allow SamsungArtCli to connect?".
+3. Obtains an authentication token from the TV.
+4. If `--name <name>` is provided, saves the device configuration to `config.yaml` and stores the token in the OS Keystore (Keychain, DPAPI, libsecret).
+
+## Complete Command Reference
+
+### `pair`
+```bash
+samsung-artmode pair [HOST] [--name <NAME>] [--timeout <SECONDS>]
+```
+- `HOST`: Optional TV IP or hostname. If omitted, performs SSDP multicast scan on 239.255.255.250:1900.
+- `--name <NAME>`: Optional account name to store in config and OS keystore.
+- `--timeout <SECONDS>`: Scan/connection timeout in seconds (default: 5).
+
+### `status`
+```bash
+samsung-artmode status [-a <ACCOUNT> | --host <HOST>]
+```
+Returns `{ "status": "on" }` or `{ "status": "off" }`.
+
+### `list`
+```bash
+samsung-artmode list [-a <ACCOUNT> | --host <HOST>] [--category <CATEGORY>]
+```
+Lists images on the TV.
+Categories:
+- `MY-C0002`: My Photos (uploaded user photos)
+- `MY-C0004`: Favorites
+- `MY-C0008`: Samsung Art Store
+
+### `current`
+```bash
+samsung-artmode current [-a <ACCOUNT> | --host <HOST>]
+```
+Returns the content item currently displayed on the screen.
+
+### `select`
+```bash
+samsung-artmode select <CONTENT_ID> [--show] [-a <ACCOUNT> | --host <HOST>]
+```
+Selects an image to display.
+- `CONTENT_ID`: Unique ID of the artwork (e.g. `SAM-F0206`).
+- `--show`: Display immediately even if TV is not currently in art mode (default: true).
+
+### `upload`
+```bash
+samsung-artmode upload <FILE> [--matte <MATTE_ID>] [--select] [-a <ACCOUNT> | --host <HOST>]
+```
+Uploads a photo to the TV.
+- `FILE`: Local path to JPEG or PNG image.
+- `--matte <MATTE_ID>`: Optional matte style to apply.
+- `--select`: Immediately set the uploaded image as active artwork.
+
+### `delete`
+```bash
+samsung-artmode delete <CONTENT_ID> [-a <ACCOUNT> | --host <HOST>]
+```
+Deletes an image from the TV.
+
+### `favorite`
+```bash
+samsung-artmode favorite <CONTENT_ID> [--remove] [-a <ACCOUNT> | --host <HOST>]
+```
+Adds or removes an image from Favorites (`MY-C0004`).
+
+### `brightness`
+```bash
+samsung-artmode brightness get [-a <ACCOUNT> | --host <HOST>]
+samsung-artmode brightness set <0-10> [-a <ACCOUNT> | --host <HOST>]
+```
+Queries or sets the display brightness between 0 (dimmest) and 10 (brightest).
+
+### `matte`
+```bash
+samsung-artmode matte list [-a <ACCOUNT> | --host <HOST>]
+samsung-artmode matte set <CONTENT_ID> <MATTE_ID> [-a <ACCOUNT> | --host <HOST>]
+```
+Lists supported mattes or applies a matte to an image.
+Common matte IDs:
+- `none`
+- `flexible_polar`
+- `shadowbox_black`
+- `modern_warm`
+
+### `slideshow`
+```bash
+samsung-artmode slideshow [--interval <MINUTES>] [--category <CATEGORY>] [--shuffle] [--off] [-a <ACCOUNT> | --host <HOST>]
+```
+Configures or disables the rotating slideshow.
+
+### `accounts`
+```bash
+samsung-artmode accounts list
+samsung-artmode accounts add <NAME> --host <HOST> [--token <TOKEN>] [--mac <MAC>] [--model <MODEL>] [--force]
+samsung-artmode accounts test <NAME>
+samsung-artmode accounts remove <NAME> [--yes]
+```
+Manages multi-TV configurations and credential storage.
+
+## Exit Codes & Error Envelope
+
+Failures print to stderr with a stable numeric exit code and structured envelope:
+
+    0  ok
+    1  error          unclassified error
+    2  network        TV unreachable or socket connection lost
+    3  auth_required  TV refused connection or invalid token; re-pair TV
+    4  not_found      content ID or file not found
+    5  rate_limited   back off before retrying
+    6  invalid_input  invalid argument value
+    7  no_account     missing --account or --host parameter
+
+Error Envelope Format:
+```json
+{
+  "error": "Error description message",
+  "code": "auth_required",
+  "detail": "Underlying diagnostic details",
+  "remediation": "samsung-artmode pair 192.168.1.100"
+}
+```
